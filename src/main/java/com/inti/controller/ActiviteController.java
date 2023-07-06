@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inti.model.Restaurant;
-import com.inti.repository.RestaurantRepository;
+import com.inti.model.Activite;
+import com.inti.repository.ActiviteRepository;
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping("/activite")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ActiviteController {
 	@Autowired
-	RestaurantRepository restaurantRepository;
+	ActiviteRepository activiteRepository;
 	
 	@PostMapping("/add")
-  public Boolean createRestaurant(@RequestBody Restaurant restaurant) {
-		System.out.println(restaurant);
+  public Boolean createActivite(@RequestBody Activite activite) {
+		System.out.println(activite);
 		try {
-      restaurantRepository.save(restaurant);
+      activiteRepository.save(activite);
       return true;
 	  } catch (Exception e) {
 	      return false;
@@ -36,32 +36,32 @@ public class ActiviteController {
   }
 	
 	@GetMapping("/get")
-	public List<Restaurant> getRestaurants() {
-		return restaurantRepository.findAll();
+	public List<Activite> getActivites() {
+		return activiteRepository.findAll();
 	}
 	
 	@GetMapping("/get/{id}")
-	public Optional<Restaurant> getRestaurant(@PathVariable("id") String id) {
-		return restaurantRepository.findById(Integer.parseInt(id));
+	public Optional<Activite> getActivite(@PathVariable("id") String id) {
+		return activiteRepository.findById(Integer.parseInt(id));
 	}
 	
 	@PutMapping("/update/{id}")
-  public Boolean updateRestaurant(@PathVariable("id") String id, @RequestBody Restaurant restaurant) {
-    Optional<Restaurant> restaurantOptional = restaurantRepository.findById(Integer.parseInt(id));
+  public Boolean updateActivite(@PathVariable("id") String id, @RequestBody Activite activite) {
+    Optional<Activite> activiteOptional = activiteRepository.findById(Integer.parseInt(id));
 
-    if (restaurantOptional.isPresent()) {
-    	restaurantRepository.save(restaurant);
+    if (activiteOptional.isPresent()) {
+    	activiteRepository.save(activite);
       return true;
     }
     return false;
   }
 	
 	@DeleteMapping("/delete/{id}")
-  public Boolean deleteRestaurant(@PathVariable("id") String id) {
-    Optional<Restaurant> restaurantOptional = restaurantRepository.findById(Integer.parseInt(id));
+  public Boolean deleteActivite(@PathVariable("id") String id) {
+    Optional<Activite> activiteOptional = activiteRepository.findById(Integer.parseInt(id));
 
-    if (restaurantOptional.isPresent()) {
-        restaurantRepository.delete(restaurantOptional.get());
+    if (activiteOptional.isPresent()) {
+        activiteRepository.delete(activiteOptional.get());
         return true;
     }
     return false;
