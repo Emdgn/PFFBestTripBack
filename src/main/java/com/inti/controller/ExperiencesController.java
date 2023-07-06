@@ -29,8 +29,8 @@ public class ExperiencesController {
 	}
 	
 	
-	@GetMapping("getExperiences/{idExperience}")
-	public Experiences getExperiences(@PathVariable("idExperience") int idExperience) {
+	@GetMapping("getExperiencesById/{idExperience}")
+	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {
 		return ier.getReferenceById(idExperience);
 	}
 	
@@ -40,8 +40,8 @@ public class ExperiencesController {
 		return ier.save(Experiences);
 	}
 	
-	@PutMapping("modifierExperiences")
-	public boolean modifierExperiences(@RequestBody Experiences Experiences) {
+	@PutMapping("updateExperiences")
+	public boolean updateExperiences(@RequestBody Experiences Experiences) {
 		if(ier.getReferenceById(Experiences.getIdExperience()) != null) {
 			ier.save(Experiences);
 			return true;
