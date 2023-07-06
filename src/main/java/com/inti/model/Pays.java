@@ -26,7 +26,8 @@ public class Pays {
 	private String nom;
 	
 	@OneToMany
-	private List<Ville> listeVille;
+	@JsonIgnore
+	private List<Ville> listeV;
 
 	public Pays(String nom) {
 		super();

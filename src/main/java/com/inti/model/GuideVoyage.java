@@ -3,10 +3,13 @@ package com.inti.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +25,16 @@ public class GuideVoyage {
 	private String nom;
 	private LocalDate dateCreation;
 	private String description;
-//	private List<Utilisateur> listeU;
-//	private List<Activite> listeA;
+	
+	@ManyToMany
+	@JsonIgnore
+	private List<Utilisateur> listeU;
+	
+	@ManyToMany
+	@JsonIgnore
+	private List<Activite> listeA;
+	
+	
 	
 	public GuideVoyage(String nom, LocalDate dateCreation, String description) {
 		super();
