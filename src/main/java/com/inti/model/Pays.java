@@ -25,7 +25,7 @@ public class Pays {
 	@Column(unique = true, nullable = false)
 	private String nom;
 	
-	@OneToMany
+	@OneToMany (mappedBy = "pays")
 	@JsonIgnore
 	private List<Ville> listeV;
 

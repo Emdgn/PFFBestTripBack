@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -27,10 +29,16 @@ public class GuideVoyage {
 	private String description;
 	
 	@ManyToMany
+	@JoinTable(name="guideVoyage_utilisateur",
+	joinColumns = @JoinColumn(name="idGuideVoyage"), 
+	inverseJoinColumns = @JoinColumn(name="idUtilisateur"))
 	@JsonIgnore
 	private List<Utilisateur> listeU;
 	
 	@ManyToMany
+	@JoinTable(name="activite_guideVoyage",
+	joinColumns = @JoinColumn(name="idGuideVoyage"), 
+	inverseJoinColumns = @JoinColumn(name="idActivité"))
 	@JsonIgnore
 	private List<Activite> listeA;
 	

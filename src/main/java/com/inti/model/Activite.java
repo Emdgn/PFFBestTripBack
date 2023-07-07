@@ -6,7 +6,10 @@ import jakarta.persistence.Id;
 
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 import java.util.List;
 
@@ -30,15 +33,22 @@ public abstract class Activite {
 	private String videos;
 	private double depense;
 	
-	@ManyToMany
+	@ManyToOne
+	@JoinColumn(name="idVille")
 	@JsonIgnore
-	private List<Ville> listeV;
+	private Ville ville;
 	
 	@ManyToMany
+	@JoinTable(name="Activite_experience",
+	joinColumns = @JoinColumn(name="idActivité"), 
+	inverseJoinColumns = @JoinColumn(name="idExperience"))
 	@JsonIgnore
 	private List<Experiences> listeE;
 	
 	@ManyToMany
+	@JoinTable(name="Activite_guideVoyage",
+	joinColumns = @JoinColumn(name="idActivité"), 
+	inverseJoinColumns = @JoinColumn(name="idGuideVoyage"))
 	@JsonIgnore
 	private List<GuideVoyage> listeG;
 }
