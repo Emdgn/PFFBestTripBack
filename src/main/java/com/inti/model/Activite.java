@@ -26,27 +26,27 @@ import lombok.Data;
 public abstract class Activite {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String nom;
-	private String commentaire;
-	private String photos;
-	private String videos;
-	private double depense;
+	protected int id;
+  	protected String nom;
+  	protected String commentaire;
+  	protected String photos;
+  	protected String videos;
+  	protected double depense;
 	
 	@ManyToOne
 	@JoinColumn(name="idVille")
 	@JsonIgnore
-	private Ville ville;
+	protected Ville ville;
 	
 	@ManyToOne
 	@JoinColumn(name="idExperience")
 	@JsonIgnore
-	private Experiences experience;
+	protected Experiences experience;
 	
 	@ManyToMany
 	@JoinTable(name="Activite_guideVoyage",
 	joinColumns = @JoinColumn(name="idActivité"), 
 	inverseJoinColumns = @JoinColumn(name="idGuideVoyage"))
 	@JsonIgnore
-	private List<GuideVoyage> listeG;
+	protected List<GuideVoyage> listeG;
 }
