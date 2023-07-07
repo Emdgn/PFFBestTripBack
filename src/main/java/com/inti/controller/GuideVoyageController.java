@@ -17,7 +17,7 @@ import com.inti.model.GuideVoyage;
 import com.inti.repository.IGuideVoyageRepository;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @JsonIgnoreProperties
 public class GuideVoyageController {
 	
