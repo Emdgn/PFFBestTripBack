@@ -33,10 +33,7 @@ public class Experiences {
 	private LocalDate dateFin;
 	private String type;
 	
-	@ManyToMany
-	@JoinTable(name="Activite_experience",
-	joinColumns = @JoinColumn(name="idExperience"), 
-	inverseJoinColumns = @JoinColumn(name="idActivité"))
+	@OneToMany (mappedBy = "experience")
 	@JsonIgnore
 	private List<Activite>activite;
 	

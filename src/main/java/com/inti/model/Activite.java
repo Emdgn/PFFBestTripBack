@@ -38,12 +38,10 @@ public abstract class Activite {
 	@JsonIgnore
 	private Ville ville;
 	
-	@ManyToMany
-	@JoinTable(name="Activite_experience",
-	joinColumns = @JoinColumn(name="idActivité"), 
-	inverseJoinColumns = @JoinColumn(name="idExperience"))
+	@ManyToOne
+	@JoinColumn(name="idExperience")
 	@JsonIgnore
-	private List<Experiences> listeE;
+	private Experiences experience;
 	
 	@ManyToMany
 	@JoinTable(name="Activite_guideVoyage",
