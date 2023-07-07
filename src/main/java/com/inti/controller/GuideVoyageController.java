@@ -43,7 +43,7 @@ public class GuideVoyageController {
 	}
 	
 	@PutMapping("modifierGuideVoyage")
-	public boolean modifigvGuideVoyage(@RequestBody GuideVoyage g)
+	public boolean modifierGuideVoyage(@RequestBody GuideVoyage g)
 	{
 		if(igv.getReferenceById(g.getIdGuide())!=null)
 		{
