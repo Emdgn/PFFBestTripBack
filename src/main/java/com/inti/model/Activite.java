@@ -66,4 +66,4 @@ public abstract class Activite {
 		this.depense = depense;
 	}
 }
-}
+
