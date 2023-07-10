@@ -49,11 +49,11 @@ public class ExperiencesControllerTest {
 		.andDo(print());
 	}
 	
-//	@Test
-//	public void modifierExperiences() throws Exception {
-//		mock.perform(put("/updateExperiences")
-//		.sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
-//		.andExpect(status().isOk());
-//	}
+	@Test
+	public void modifierExperiences() throws Exception {
+		mock.perform(put("/updateExperiences")
+		.sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
+		.andExpect(status().isOk());
+	}
 
 }
