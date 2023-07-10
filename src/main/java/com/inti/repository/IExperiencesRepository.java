@@ -15,8 +15,8 @@ import jakarta.transaction.Transactional;
 public interface IExperiencesRepository extends JpaRepository<Experiences, Integer> {
 	
 	@Modifying
-	@Query(value = "update Experiences set id_utilisateur=:id_utilisateur where id_experiences=:id_experiences", nativeQuery = true)
-	void insertIdUtilisateur(@Param("id_utilisateur") int id_utilisateur, @Param("id_experiences") int id_experiences);
+	@Query(value = "update Experiences set id_utilisateur=:id_utilisateur where id_experience=:id_experience", nativeQuery = true)
+	void insertIdUtilisateur(@Param("id_utilisateur") int id_utilisateur, @Param("id_experience") int id_experiences);
 	
 
 
