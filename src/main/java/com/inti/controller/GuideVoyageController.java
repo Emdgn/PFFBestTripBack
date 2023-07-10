@@ -26,12 +26,6 @@ public class GuideVoyageController {
 	
 	@Autowired
 	IGuideVoyageRepository igv;
-
-	@GetMapping("hello")
-	private String hello()
-	{
-		return "Hello World !";
-	}
 	
 	@GetMapping("listeGuideVoyage")
 	public List<GuideVoyage> listeGuideVoyage()
