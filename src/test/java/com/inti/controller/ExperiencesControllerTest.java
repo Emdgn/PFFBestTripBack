@@ -33,12 +33,6 @@ public class ExperiencesControllerTest {
 	IUtilisateurRepository iur;
 	
 	
-//	@Test
-//	public void saveExperiences() throws Exception {
-//		mock.perform(post("/saveExperiences").sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
-//		.andExpect(status().isOk());
-//	}
-	
 	@Test
 	public void listeExperiences() throws Exception {
 		mock.perform(get("/listeExperiences"))
