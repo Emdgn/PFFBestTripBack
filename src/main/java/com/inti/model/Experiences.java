@@ -47,5 +47,15 @@ public class Experiences {
 		this.dateFin = dateFin;
 		this.type = type;
 		this.activites = activites;
+	}
+
+	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type) {
+		super();
+		this.nom = nom;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.type = type;
 	}	
+	
+	
 }
