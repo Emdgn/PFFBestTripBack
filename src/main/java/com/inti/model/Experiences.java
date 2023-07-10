@@ -11,8 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,6 +23,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class Experiences {
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idExperience;
@@ -33,10 +32,7 @@ public class Experiences {
 	private LocalDate dateFin;
 	private String type;
 	
-	@ManyToMany
-	@JoinTable(name="Activite_experience",
-	joinColumns = @JoinColumn(name="idExperience"), 
-	inverseJoinColumns = @JoinColumn(name="idActivité"))
+	@OneToMany (mappedBy = "experience")
 	@JsonIgnore
 	private List<Activite>activite;
 	
@@ -44,5 +40,15 @@ public class Experiences {
 	@JoinColumn(name = "idUtilisateur")
 	@JsonIgnore
 	private Utilisateur utilisateur;
+
+	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type) {
+		super();
+		this.nom = nom;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.type = type;
+	}
+	
+	
 
 }

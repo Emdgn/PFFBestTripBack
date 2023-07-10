@@ -36,17 +36,14 @@ public class ExperiencesController {
 	
 	
 	@PostMapping("saveExperiences")
-	public Experiences saveExperiences(@RequestBody Experiences Experiences) {
-		
-		
-		
-		return ier.save(Experiences);
+	public Experiences saveExperiences(@RequestBody Experiences experiences) {
+		return ier.save(experiences);
 	}
 	
 	@PutMapping("updateExperiences")
-	public boolean updateExperiences(@RequestBody Experiences Experiences) {
-		if(ier.getReferenceById(Experiences.getIdExperience()) != null) {
-			ier.save(Experiences);
+	public boolean updateExperiences(@RequestBody Experiences experiences) {
+		if(ier.getReferenceById(experiences.getIdExperience()) != null) {
+			ier.save(experiences);
 			return true;
 		}
 		

@@ -7,5 +7,5 @@ import com.inti.model.GuideVoyage;
 
 @Repository
 public interface IGuideVoyageRepository extends JpaRepository<GuideVoyage, Integer> {
-
+	
 }
