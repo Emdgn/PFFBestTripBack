@@ -3,7 +3,6 @@ package com.inti.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -17,13 +16,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Entity @Table
 @Data @NoArgsConstructor @AllArgsConstructor
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class Experiences {
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idExperience;
@@ -33,22 +31,21 @@ public class Experiences {
 	private String type;
 	
 	@OneToMany (mappedBy = "experience")
-	@JsonIgnore
-	private List<Activite>activite;
+	@Exclude
+	private List<Activite> activites;
 	
 	@ManyToOne
 	@JoinColumn(name = "idUtilisateur")
-	@JsonIgnore
+	@Exclude
 	private Utilisateur utilisateur;
 
-	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type) {
+	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type,
+			List<Activite> activites) {
 		super();
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.type = type;
-	}
-	
-	
-
+		this.activites = activites;
+	}	
 }
