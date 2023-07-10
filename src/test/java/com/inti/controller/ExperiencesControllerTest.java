@@ -15,7 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.inti.model.Experiences;
+import com.inti.repository.ActiviteRepository;
 import com.inti.repository.IExperiencesRepository;
+import com.inti.repository.IUtilisateurRepository;
 
 @WebMvcTest(controllers = ExperiencesController.class)
 public class ExperiencesControllerTest {
@@ -25,6 +27,10 @@ public class ExperiencesControllerTest {
 	
 	@MockBean
 	private IExperiencesRepository ier;
+	@MockBean
+	ActiviteRepository ar;
+	@MockBean
+	IUtilisateurRepository iur;
 	
 	
 //	@Test
@@ -32,7 +38,7 @@ public class ExperiencesControllerTest {
 //		mock.perform(post("/saveExperiences").sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
 //		.andExpect(status().isOk());
 //	}
-//	
+	
 	@Test
 	public void listeExperiences() throws Exception {
 		mock.perform(get("/listeExperiences"))
