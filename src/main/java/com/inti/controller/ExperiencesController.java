@@ -56,9 +56,9 @@ public class ExperiencesController {
 	}
 	
 	@PutMapping("updateExperiences")
-	public boolean updateExperiences(@RequestBody Experiences Experiences) {
-		if(ier.getReferenceById(Experiences.getIdExperience()) != null) {
-			ier.save(Experiences);
+	public boolean updateExperiences(@RequestBody Experiences experiences) {
+		if(ier.getReferenceById(experiences.getIdExperience()) != null) {
+			ier.save(experiences);
 			return true;
 		}
 		

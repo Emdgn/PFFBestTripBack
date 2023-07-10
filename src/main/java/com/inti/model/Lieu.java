@@ -26,8 +26,4 @@ public class Lieu extends Activite {
 		super(id, nom, commentaire, photos, videos, depense);
 		this.type = type;
 	}
-
-	public Lieu() {
-		super();
-	}
 }

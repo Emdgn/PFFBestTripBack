@@ -22,7 +22,6 @@ import lombok.ToString.Exclude;
 @Data @NoArgsConstructor @AllArgsConstructor
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class Experiences {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idExperience;

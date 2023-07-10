@@ -29,8 +29,4 @@ public class Restaurant extends Activite {
 		this.type = type;
 		this.adresse = adresse;
 	}
-
-	public Restaurant() {
-		super();
-	}
 }

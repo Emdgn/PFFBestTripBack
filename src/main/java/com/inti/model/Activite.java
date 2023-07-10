@@ -20,15 +20,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString.Exclude;
 
-@Table
 @Entity
+@Table
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-@NoArgsConstructor
 public abstract class Activite {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
