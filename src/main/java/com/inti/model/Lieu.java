@@ -10,7 +10,6 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Table
@@ -20,7 +19,6 @@ import lombok.ToString;
 @EqualsAndHashCode (callSuper = false)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @ToString(callSuper = true)
-@NoArgsConstructor
 public class Lieu extends Activite {
 	private String type;
 
