@@ -9,21 +9,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Entity
 @Table
+
 @Inheritance(strategy = InheritanceType.JOINED)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+
 public abstract class Activite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,30 +33,39 @@ public abstract class Activite {
     protected String nom;
     protected String commentaire;
     @Column(length = 100000)
-    protected List<String> photos;
+    protected List<String> photos= new ArrayList<>();
     protected String videos;
     protected double depense;
 
-    @ManyToOne
-    @JoinColumn(name = "idVille")
-    @JsonIgnore
-    protected Ville ville;
+	
+	@ManyToOne
+	@JoinColumn(name="idVille")
+	@JsonIgnore
+	@Exclude
+	private Ville ville;
+	
+	@ManyToOne
+	@JoinColumn(name="idExperience")
+	@JsonIgnore
+	@Exclude
+	private Experiences experience;
+	
+	@ManyToMany
+	@JoinTable(name="Activite_guideVoyage",
+	joinColumns = @JoinColumn(name="idActivité"), 
+	inverseJoinColumns = @JoinColumn(name="idGuideVoyage"))
+	@Exclude
+	@JsonIgnore
+	private List<GuideVoyage> listeG;
 
-    @ManyToOne
-    @JoinColumn(name = "idExperience")
-    @JsonIgnore
-    protected Experiences experience;
-
-    @ManyToMany
-    @JoinTable(name = "Activite_guideVoyage", joinColumns = @JoinColumn(name = "idActivité"), inverseJoinColumns = @JoinColumn(name = "idGuideVoyage"))
-    @JsonIgnore
-    protected List<GuideVoyage> listeG;
-
-    public Activite(String nom, String commentaire, List<String> photos, String videos, double depense) {
-        this.nom = nom;
-        this.commentaire = commentaire;
-        this.photos = photos;
-        this.videos = videos;
-        this.depense = depense;
-    }
+	public Activite(int id, String nom, String commentaire, List<String> photos, String videos, double depense) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.commentaire = commentaire;
+		this.photos = photos;
+		this.videos = videos;
+		this.depense = depense;
+	}
+}
 }
