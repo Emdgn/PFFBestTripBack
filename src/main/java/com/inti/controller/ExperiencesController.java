@@ -43,6 +43,7 @@ public class ExperiencesController {
 	
 	@PostMapping("saveExperiences")
 	public Experiences saveExperiences(@RequestBody Experiences experiences) {
+		System.out.println("save");
 		Experiences savedExperiences = ier.save(experiences);
 
     List<Activite> activites = experiences.getActivites();
@@ -57,8 +58,15 @@ public class ExperiencesController {
 	
 	@PutMapping("updateExperiences")
 	public boolean updateExperiences(@RequestBody Experiences experiences) {
+		System.out.println("update");
 		if(ier.getReferenceById(experiences.getIdExperience()) != null) {
-			ier.save(experiences);
+			Experiences savedExperiences = ier.save(experiences);
+			List<Activite> activites = experiences.getActivites();
+	    for (Activite activite : activites) {
+	        activite.setExperience(savedExperiences);
+
+	        activiteRepository.save(activite);
+	    }
 			return true;
 		}
 		
