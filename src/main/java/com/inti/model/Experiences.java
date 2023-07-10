@@ -3,7 +3,6 @@ package com.inti.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -11,14 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Entity @Table
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -34,12 +32,21 @@ public class Experiences {
 	private String type;
 	
 	@OneToMany (mappedBy = "experience")
-	@JsonIgnore
-	private List<Activite>activite;
+	@Exclude
+	private List<Activite> activites;
 	
 	@ManyToOne
 	@JoinColumn(name = "idUtilisateur")
-	@JsonIgnore
+	@Exclude
 	private Utilisateur utilisateur;
 
+	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type,
+			List<Activite> activites) {
+		super();
+		this.nom = nom;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.type = type;
+		this.activites = activites;
+	}	
 }

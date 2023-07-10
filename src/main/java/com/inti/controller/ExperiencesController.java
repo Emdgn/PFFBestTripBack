@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inti.model.Activite;
 import com.inti.model.Experiences;
+import com.inti.repository.ActiviteRepository;
 import com.inti.repository.IExperiencesRepository;
 
 @RestController
@@ -21,6 +23,8 @@ public class ExperiencesController {
 	
 	@Autowired
 	IExperiencesRepository ier;
+	@Autowired
+	ActiviteRepository activiteRepository;
 	
 	
 	@GetMapping("listeExperiences")
@@ -31,13 +35,24 @@ public class ExperiencesController {
 	
 	@GetMapping("getExperiencesById/{idExperience}")
 	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {
+		System.out.println(ier.getReferenceById(idExperience));
+		System.out.println(ier.getReferenceById(idExperience).getActivites());
 		return ier.getReferenceById(idExperience);
 	}
 	
 	
 	@PostMapping("saveExperiences")
-	public Experiences saveExperiences(@RequestBody Experiences Experiences) {
-		return ier.save(Experiences);
+	public Experiences saveExperiences(@RequestBody Experiences experiences) {
+		Experiences savedExperiences = ier.save(experiences);
+
+    List<Activite> activites = experiences.getActivites();
+    for (Activite activite : activites) {
+        activite.setExperience(savedExperiences);
+
+        activiteRepository.save(activite);
+    }
+
+    return savedExperiences;
 	}
 	
 	@PutMapping("updateExperiences")
