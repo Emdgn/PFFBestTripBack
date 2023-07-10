@@ -33,11 +33,11 @@ public class ExperiencesControllerTest {
 //		.andExpect(status().isOk());
 //	}
 //	
-//	@Test
-//	public void listeExperiences() throws Exception {
-//		mock.perform(get("/listeExperiences"))
-//		.andExpect(status().isOk())
-//		.andDo(print());
-//	}
+	@Test
+	public void listeExperiences() throws Exception {
+		mock.perform(get("/listeExperiences"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 
 }
