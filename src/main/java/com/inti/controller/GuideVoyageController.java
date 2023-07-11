@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.inti.model.Activite;
 import com.inti.model.GuideVoyage;
+import com.inti.model.Utilisateur;
 import com.inti.repository.IGuideVoyageRepository;
+import com.inti.repository.IUtilisateurRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -26,6 +28,8 @@ public class GuideVoyageController {
 	
 	@Autowired
 	IGuideVoyageRepository igv;
+	@Autowired
+	IUtilisateurRepository iur;
 	
 	@GetMapping("listeGuideVoyage")
 	public List<GuideVoyage> listeGuideVoyage()
@@ -36,7 +40,14 @@ public class GuideVoyageController {
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
 	{
-		return igv.save(GuideVoyage);
+		GuideVoyage gvSaved = igv.save(GuideVoyage);
+		
+		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
+	    for (Utilisateur utilisateur : utilisateurs) {
+	        utilisateur.getListeG().add(gvSaved);
+	        iur.save(utilisateur);
+	    }
+		return gvSaved;
 	}
 	
 	@PutMapping("modifierGuideVoyage")
