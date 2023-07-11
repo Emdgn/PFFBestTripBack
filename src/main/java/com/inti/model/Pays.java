@@ -2,6 +2,9 @@ package com.inti.model;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,20 +18,21 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Entity @Table
 @Data @AllArgsConstructor @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Pays {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String nom;
-	
+
 	@OneToMany (mappedBy = "pays")
-	@JsonIgnore
+	@JsonIgnore @Exclude
 	private List<Ville> listeV;
 
 	public Pays(String nom) {
@@ -36,5 +40,4 @@ public class Pays {
 		this.nom = nom;
 	}
 
-	
 }

@@ -38,6 +38,11 @@ public class Ville {
 	@JsonIgnore
 	private List<Activite> listeA;
 	
+	public Ville(String nom) {
+		super();
+		this.nom = nom;
+	}
+	
 	public Ville(String nom, Pays pays) {
 		super();
 		this.nom = nom;

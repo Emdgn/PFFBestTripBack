@@ -40,14 +40,11 @@ public class PaysController {
 	
 	@GetMapping("listePays")
 	public List<Pays> listePays() {
+		List<Pays>l=ipr.findAll();
+		System.out.println(l);
 		return ipr.findAll();
 	}
 	
-//	listeVillePays
-	@GetMapping("listeVillePays")
-	public List<Ville> listeVillePays() {
-		return ivr.findAllVillePays();
-	}
 	
 	@DeleteMapping("deletePays/{id}")
 	public boolean deleteUtilisateur(@PathVariable("id") int id)

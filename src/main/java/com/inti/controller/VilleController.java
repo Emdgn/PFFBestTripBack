@@ -33,9 +33,9 @@ public class VilleController {
 	IPaysRepository ipr;
 	
 	@PostMapping("creerVille")
-	public Ville ajoutVille(@RequestParam("nom") String nom,@RequestParam("pays") int pays) {
-		Pays p=ipr.getReferenceById(pays);
-		Ville v= new  Ville(nom, p);
+	public Ville ajoutVille(@RequestBody Ville v /* , @RequestParam("pays") int pays*/) {
+//		Pays p=ipr.getReferenceById(pays);
+//		Ville v= new  Ville(nom, p);
 		return ivr.save(v);
 	}
 	
@@ -56,7 +56,7 @@ public class VilleController {
 			}
 		}
 	
-	@PutMapping("modifierVille/{id}")
+	@PutMapping("modifierVille")
 	public boolean modifierVille(@RequestBody Ville ville) {
 		if(ivr.getReferenceById(ville.getId()) != null)
 		{
@@ -65,6 +65,7 @@ public class VilleController {
 		}
 		return false;
 	}
+	
 	
 	@GetMapping("getVille/{id}")
 	public Ville getVille(@PathVariable("id") int id)
