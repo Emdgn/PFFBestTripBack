@@ -43,23 +43,16 @@ public class GuideVoyageController {
 	
 	// ////////////////////////////
 	
-	@GetMapping("listeGuideVoyage")
-	public List<GuideVoyage> listeGuideVoyage(String nom)
+	@GetMapping("listeGuideVoyage/{nom}")
+	public List<GuideVoyage> listeGuideVoyage(@PathVariable("nom") String nom)
 	{
-		System.out.println(nom);
-		if(nom == null) {
+		if(nom.contentEquals("undefined")) {
 			return igv.findAll();
 		}
 		else {
 			return igv.getGuideByLocalisation(nom);
 		}
 	}
-	
-//	@GetMapping("listeGuideVoyage")
-//	public List<GuideVoyage> listeGuideVoyageParLocalisation(String nom)
-//	{
-//		return igv.getGuideByLocalisation(nom);
-//	}
 	
 	/////////////////////////////////
 	
