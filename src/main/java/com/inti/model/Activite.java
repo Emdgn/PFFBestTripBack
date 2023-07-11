@@ -25,6 +25,7 @@ import lombok.ToString.Exclude;
 @Data @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@NoArgsConstructor
 public abstract class Activite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
