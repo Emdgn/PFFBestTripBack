@@ -16,8 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inti.model.Activite;
 import com.inti.model.GuideVoyage;
+import com.inti.model.Utilisateur;
 import com.inti.repository.ActiviteRepository;
 import com.inti.repository.IGuideVoyageRepository;
+import com.inti.repository.IUtilisateurRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -26,6 +28,8 @@ public class GuideVoyageController {
 	
 	@Autowired
 	IGuideVoyageRepository igv;
+	@Autowired
+	IUtilisateurRepository iur;
 	
 	@Autowired
 	ActiviteRepository iar;
@@ -62,14 +66,24 @@ public class GuideVoyageController {
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
 	{
-		System.out.println("guide" + GuideVoyage);
+
+		GuideVoyage gvSaved = igv.save(GuideVoyage);
+		
+		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
+	    for (Utilisateur utilisateur : utilisateurs) {
+	        utilisateur.getListeG().add(gvSaved);
+	        iur.save(utilisateur);
+	    }
+		return gvSaved;
+
+//		System.out.println("guide" + GuideVoyage);
 //		for ( Activite activite : GuideVoyage.getActivites()) {
 //			
 //		iar.save(activite);
 			
 //		}
 //		GuideVoyage gv = new GuideVoyage(GuideVoyage.getNom(), GuideVoyage.getDateCreation(), GuideVoyage.getDescription());
-		return igv.save(GuideVoyage);
+
 	}
 	
 	@PutMapping("modifierGuideVoyage")
