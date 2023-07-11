@@ -22,11 +22,10 @@ import lombok.ToString.Exclude;
 
 @Entity
 @Table
-@Data
+@Data @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-@NoArgsConstructor
-public abstract class Activite {
+public class Activite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;

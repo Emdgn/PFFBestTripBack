@@ -53,7 +53,7 @@ public class ExperiencesController {
 		
 		System.out.println("Username : " + username);
 		
-		ier.insertIdUtilisateur(iur.getIdByUsername(username).get(0), savedExperiences.getIdExperience());
+		// ier.insertIdUtilisateur(iur.getIdByUsername(username).get(0), savedExperiences.getIdExperience());
 
     List<Activite> activites = experiences.getActivites();
     for (Activite activite : activites) {
@@ -91,15 +91,19 @@ public class ExperiencesController {
 	
 	@DeleteMapping("deleteExperiences/{idExperience}")
 	public boolean deleteExperiences(@PathVariable("idExperience") int idExperience) {
-		
-		try {
-			ier.findById(idExperience).get();
-			ier.delete(ier.getReferenceById(idExperience));
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-		
+	    try {
+	        Experiences experience = ier.findById(idExperience).get();
+	        
+	        for (Activite activite : experience.getActivites()) {
+	            activiteRepository.delete(activite);
+	        }
+
+	        ier.delete(experience);
+	        
+	        return true;
+	    } catch (Exception e) {
+	        return false;
+	    }
 	}
 	
 	@GetMapping("getUsernameById/{idExperience}")
