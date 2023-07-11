@@ -1,7 +1,6 @@
 package com.inti.controller;
 
 import java.util.List;
-
 import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inti.model.Activite;
 import com.inti.model.GuideVoyage;
 import com.inti.model.Utilisateur;
+import com.inti.repository.ActiviteRepository;
 import com.inti.repository.IGuideVoyageRepository;
 import com.inti.repository.IUtilisateurRepository;
 
@@ -31,15 +31,20 @@ public class GuideVoyageController {
 	@Autowired
 	IUtilisateurRepository iur;
 	
+	@Autowired
+	ActiviteRepository iar;
+	
 	@GetMapping("listeGuideVoyage")
 	public List<GuideVoyage> listeGuideVoyage()
 	{
+		System.out.println("test:" + igv.findAll());
 		return igv.findAll();
 	}
 	
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
 	{
+
 		GuideVoyage gvSaved = igv.save(GuideVoyage);
 		
 		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
@@ -48,6 +53,15 @@ public class GuideVoyageController {
 	        iur.save(utilisateur);
 	    }
 		return gvSaved;
+
+//		System.out.println("guide" + GuideVoyage);
+//		for ( Activite activite : GuideVoyage.getActivites()) {
+//			
+//		iar.save(activite);
+			
+//		}
+//		GuideVoyage gv = new GuideVoyage(GuideVoyage.getNom(), GuideVoyage.getDateCreation(), GuideVoyage.getDescription());
+
 	}
 	
 	@PutMapping("modifierGuideVoyage")
