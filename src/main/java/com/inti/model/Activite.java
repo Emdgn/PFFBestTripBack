@@ -22,8 +22,10 @@ import lombok.ToString.Exclude;
 
 @Entity
 @Table
+@Data
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@NoArgsConstructor
 public abstract class Activite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +36,6 @@ public abstract class Activite {
     protected List<String> photos= new ArrayList<>();
     protected String videos;
     protected double depense;
-
 	
 	@ManyToOne
 	@JoinColumn(name="idVille")

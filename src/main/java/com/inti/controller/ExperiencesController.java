@@ -42,13 +42,13 @@ public class ExperiencesController {
 	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {
 		System.out.println(ier.getReferenceById(idExperience));
 		System.out.println(ier.getReferenceById(idExperience).getActivites());
+		
 		return ier.getReferenceById(idExperience);
 	}
 	
 	
 	@PostMapping("saveExperiences")
 	public Experiences saveExperiences(@RequestBody Experiences experiences, @RequestParam("username") String username) {
-		
 		Experiences savedExperiences = ier.save(experiences);
 		
 		System.out.println("Username : " + username);
@@ -66,9 +66,23 @@ public class ExperiencesController {
 	}
 	
 	@PutMapping("updateExperiences")
-	public boolean updateExperiences(@RequestBody Experiences experiences) {
+	public boolean updateExperiences(@RequestBody Experiences experiences, @RequestParam("username") String username) {
+
+
 		if(ier.getReferenceById(experiences.getIdExperience()) != null) {
+
 			ier.save(experiences);
+			
+			ier.insertIdUtilisateur(iur.getIdByUsername(username).get(0), ier.save(experiences).getIdExperience());
+
+			Experiences savedExperiences = ier.save(experiences);
+			List<Activite> activites = experiences.getActivites();
+	    for (Activite activite : activites) {
+	        activite.setExperience(savedExperiences);
+
+	        activiteRepository.save(activite);
+	    }
+
 			return true;
 		}
 		
@@ -87,6 +101,16 @@ public class ExperiencesController {
 		}
 		
 	}
+	
+	@GetMapping("getUsernameById/{idExperience}")
+	public String getUsernameById(@PathVariable("idExperience") int idExperience)
+	{
+		
+		return iur.getUsernameById(ier.getIdUtilisateurByIdExp(idExperience));
+		
+	}
+	
+	
 	
 	
 

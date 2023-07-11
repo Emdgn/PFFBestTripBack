@@ -14,5 +14,8 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Integ
 	
 	@Query(value = "select id from Utilisateur where username= :username", nativeQuery = true)
 	List<Integer> getIdByUsername(@Param("username") String username);
+	
+	@Query(value = "select username from utilisateur where id=:id", nativeQuery = true)
+	String getUsernameById(@Param("id") int id);
 
 }
