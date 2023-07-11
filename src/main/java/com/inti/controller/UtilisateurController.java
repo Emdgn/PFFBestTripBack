@@ -64,6 +64,10 @@ public class UtilisateurController {
 		return iur.getReferenceById(id);
 	}
 	
-	
+	@GetMapping("getEmailByEstAbonne")
+	public List<String> getEmailByEstAbonne()
+	{
+		return iur.getEmailByEstAbonne();
+	}
 
 }
