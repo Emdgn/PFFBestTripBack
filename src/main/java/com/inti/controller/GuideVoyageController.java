@@ -58,6 +58,17 @@ public class GuideVoyageController {
 
 	}
 	
+	@GetMapping("doesGuideExist/{nom}")
+	public Boolean doesGuideExist(@PathVariable("nom") String nom) {
+		if(igv.doesGuideExist(nom) != null || nom.contentEquals("undefined")) {
+			System.out.println("AAAAA");
+			return true;
+		}
+		else {
+			System.out.println("BBBBB");
+			return false;
+		}
+	}
 	
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)

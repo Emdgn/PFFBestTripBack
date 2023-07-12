@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.inti.model.GuideVoyage;
-import com.inti.model.Utilisateur;
 
 @Repository
 public interface IGuideVoyageRepository extends JpaRepository<GuideVoyage, Integer> {
