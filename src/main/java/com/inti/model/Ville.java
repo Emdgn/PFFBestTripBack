@@ -3,6 +3,7 @@ package com.inti.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 
 @Entity @Table
 @Data @AllArgsConstructor @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Ville {
 
 	@Id
@@ -35,6 +37,11 @@ public class Ville {
 	@OneToMany (mappedBy = "ville")
 	@JsonIgnore
 	private List<Activite> listeA;
+	
+	public Ville(String nom) {
+		super();
+		this.nom = nom;
+	}
 	
 	public Ville(String nom, Pays pays) {
 		super();
