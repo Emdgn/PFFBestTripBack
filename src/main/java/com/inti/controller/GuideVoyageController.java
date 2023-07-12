@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class GuideVoyageController {
 	
 	@GetMapping("doesGuideExist/{nom}")
 	public Boolean doesGuideExist(@PathVariable("nom") String nom) {
-		if(igv.doesGuideExist(nom) != null || nom.contentEquals("undefined")) {
+		if(!igv.doesGuideExist(nom).isEmpty() || nom.contentEquals("undefined")) {
 			return true;
 		}
 		else {

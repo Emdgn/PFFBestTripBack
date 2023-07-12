@@ -44,9 +44,6 @@ public class ExperiencesController {
 	@GetMapping("listeExperiences/{type}")
 	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
 		
-		System.out.println("aaaaaaaaaaaaa");
-		System.out.println("type : " + type);
-		
 		if(type.contentEquals("undefined")) {
 			return ier.findAll();
 		}
@@ -54,6 +51,16 @@ public class ExperiencesController {
 			return ier.getExperiencesByType(type);
 		}
 		
+	}
+	
+	@GetMapping("doesExperienceExist/{type}")
+	public Boolean doesExperienceExist(@PathVariable("type") String type) {
+		if(ier.doesExperienceExist(type).isEmpty() || type.contentEquals("undefined")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 
