@@ -13,6 +13,9 @@ import com.inti.model.Utilisateur;
 @Repository
 public interface IGuideVoyageRepository extends JpaRepository<GuideVoyage, Integer> {
 	
-	
-	
+
+	@Query(value = "select * from guide_voyage where nom = :nom", nativeQuery = true)
+	List<GuideVoyage> getGuideByLocalisation(@Param("nom") String nom);
+
+
 }

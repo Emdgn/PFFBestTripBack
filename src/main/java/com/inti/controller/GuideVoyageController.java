@@ -35,9 +35,11 @@ public class GuideVoyageController {
 	@Autowired
 	ActiviteRepository iar;
 	
-	@GetMapping("listeGuideVoyage")
-	public List<GuideVoyage> listeGuideVoyage()
+	
+	@GetMapping("listeGuideVoyage/{nom}")
+	public List<GuideVoyage> listeGuideVoyage(@PathVariable("nom") String nom)
 	{
+
 		List<GuideVoyage> listeGV = igv.findAll();
 		List<Utilisateur> listeU;
 		for (GuideVoyage guideVoyage : listeGV) {
@@ -45,8 +47,17 @@ public class GuideVoyageController {
 			guideVoyage.setListeU(listeU);
 		}
 		
-		return listeGV;
+		
+
+		if(nom.contentEquals("undefined")) {
+			return listeGV;
+		}
+		else {
+			return igv.getGuideByLocalisation(nom);
+		}
+
 	}
+	
 	
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
