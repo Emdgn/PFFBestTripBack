@@ -34,14 +34,11 @@ public class VilleController {
 	
 	@PostMapping("creerVille")
 	public Ville ajoutVille(@RequestBody Ville v /* , @RequestParam("pays") int pays*/) {
-//		Pays p=ipr.getReferenceById(pays);
-//		Ville v= new  Ville(nom, p);
 		return ivr.save(v);
 	}
 	
 	@GetMapping("listeVille")
 	public List<Ville> listeVille () {
-//		System.out.println(ivr.findAll());
 		return ivr.findAll();
 	}
 	
@@ -73,4 +70,5 @@ public class VilleController {
 		return ivr.getReferenceById(id);
 	}
 
+	
 }
