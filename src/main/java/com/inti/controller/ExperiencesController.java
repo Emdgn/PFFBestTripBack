@@ -32,11 +32,25 @@ public class ExperiencesController {
 	
 	
 	
-	@GetMapping("listeExperiences")
-	public List<Experiences> listeExperiences() {
-		return ier.findAll();
+//	@GetMapping("listeExperiences")
+//	public List<Experiences> listeExperiences() {
+//		return ier.findAll();
+//	}
+	
+	/////////////////////////////////////////////
+	
+	@GetMapping("listeExperiences/{type}")
+	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
+		if(type.contentEquals("undefined")) {
+			return ier.findAll();
+		}
+		else {
+			return ier.getExperiencesByType(type);
+		}
+		
 	}
 	
+	//////////////////////////////////////////////////
 	
 	@GetMapping("getExperiencesById/{idExperience}")
 	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {

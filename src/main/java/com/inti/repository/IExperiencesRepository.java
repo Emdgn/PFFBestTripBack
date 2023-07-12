@@ -23,4 +23,6 @@ public interface IExperiencesRepository extends JpaRepository<Experiences, Integ
 	@Query(value = "select id_utilisateur from Experiences where id_experience=:id_experience", nativeQuery = true)
 	Integer getIdUtilisateurByIdExp(@Param("id_experience") int id_experience);
 
+	@Query(value = "select * from experiences where type = :type", nativeQuery = true)
+	List<Experiences> getExperiencesByType(@Param("type") String type);
 }
