@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -38,7 +39,7 @@ public class ExperiencesControllerTest {
 //	@Test
 //	public void saveExperiences() throws Exception {
 //		mock.perform(post("/saveExperiences")
-//		.sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
+//		.sessionAttr("experiences", new Experiences(1, "e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
 //		.andExpect(status().isOk());
 //	}
 	
@@ -52,8 +53,14 @@ public class ExperiencesControllerTest {
 //	@Test
 //	public void modifierExperiences() throws Exception {
 //		mock.perform(put("/updateExperiences")
-//		.sessionAttr("experiences", new Experiences("e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
+//		.sessionAttr("experiences", new Experiences(1, "e", LocalDate.of(2022, 01, 01), LocalDate.of(2022, 02, 02), "montagne")))
 //		.andExpect(status().isOk());
 //	}
+	
+	@Test
+	public void deleteExperiences() throws Exception {
+		mock.perform(delete("/deleteExperiences/1"))
+		.andExpect(status().isOk());
+	}
 
 }
