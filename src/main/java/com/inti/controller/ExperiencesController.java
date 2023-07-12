@@ -40,15 +40,13 @@ public class ExperiencesController {
 	@Autowired
 	LieuRepository lieuRepository;
 	
-//	@GetMapping("listeExperiences")
-//	public List<Experiences> listeExperiences() {
-//		return ier.findAll();
-//	}
-	
-	/////////////////////////////////////////////
 	
 	@GetMapping("listeExperiences/{type}")
 	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
+		
+		System.out.println("aaaaaaaaaaaaa");
+		System.out.println("type : " + type);
+		
 		if(type.contentEquals("undefined")) {
 			return ier.findAll();
 		}
