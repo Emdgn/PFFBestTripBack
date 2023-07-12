@@ -20,6 +20,8 @@ import com.inti.model.Utilisateur;
 import com.inti.repository.ActiviteRepository;
 import com.inti.repository.IGuideVoyageRepository;
 import com.inti.repository.IUtilisateurRepository;
+import com.inti.repository.LieuRepository;
+import com.inti.repository.RestaurantRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,9 +32,12 @@ public class GuideVoyageController {
 	IGuideVoyageRepository igv;
 	@Autowired
 	IUtilisateurRepository iur;
-	
 	@Autowired
 	ActiviteRepository iar;
+	@Autowired
+	RestaurantRepository restaurantRepository;
+	@Autowired
+	LieuRepository lieuRepository;
 	
 	
 	@GetMapping("listeGuideVoyage/{nom}")
@@ -54,22 +59,27 @@ public class GuideVoyageController {
 		GuideVoyage gvSaved = igv.save(GuideVoyage);
 		
 		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
-	    for (Utilisateur utilisateur : utilisateurs) {
-	        utilisateur.getListeG().add(gvSaved);
-	        iur.save(utilisateur);
-	    }
+//	    for (Utilisateur utilisateur : utilisateurs) {
+//	        utilisateur.getListeG().add(gvSaved);
+//	       // iur.save(utilisateur);
+//	    }
 		return gvSaved;
 	}
 	
 	@PutMapping("modifierGuideVoyage")
 	public boolean modifierGuideVoyage(@RequestBody GuideVoyage g)
 	{
+		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk" +g.getActivites().size());
+		for (Activite activite : g.getActivites()) 
+		{
+			System.out.println("uuuuuu" + activite.getNom() + activite.getCommentaire() + activite.getId() + activite.getDepense());
+		}
 		if(igv.getReferenceById(g.getIdGuide())!=null)
 		{
 		igv.save(g);
 		return true;
 		}
-	return false;
+		return false;
 	}
 	
 	@DeleteMapping("deleteGuideVoyage/{id}")
