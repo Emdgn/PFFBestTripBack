@@ -53,15 +53,6 @@ public class GuideVoyageController {
 	        iur.save(utilisateur);
 	    }
 		return gvSaved;
-
-//		System.out.println("guide" + GuideVoyage);
-//		for ( Activite activite : GuideVoyage.getActivites()) {
-//			
-//		iar.save(activite);
-			
-//		}
-//		GuideVoyage gv = new GuideVoyage(GuideVoyage.getNom(), GuideVoyage.getDateCreation(), GuideVoyage.getDescription());
-
 	}
 	
 	@PutMapping("modifierGuideVoyage")
