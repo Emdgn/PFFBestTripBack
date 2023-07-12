@@ -1,6 +1,7 @@
 package com.inti.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,7 +22,7 @@ public interface IExperiencesRepository extends JpaRepository<Experiences, Integ
 	void insertIdUtilisateur(@Param("id_utilisateur") int id_utilisateur, @Param("id_experience") int id_experiences);
 	
 	@Query(value = "select id_utilisateur from Experiences where id_experience=:id_experience", nativeQuery = true)
-	Integer getIdUtilisateurByIdExp(@Param("id_experience") int id_experience);
+	Optional<Integer> getIdUtilisateurByIdExp(@Param("id_experience") int id_experience);
 
 	@Query(value = "select * from experiences where type = :type", nativeQuery = true)
 	List<Experiences> getExperiencesByType(@Param("type") String type);
