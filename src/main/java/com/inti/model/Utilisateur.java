@@ -1,5 +1,6 @@
 package com.inti.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -52,7 +53,7 @@ public class Utilisateur {
 	joinColumns = @JoinColumn(name="idUtilisateur"), 
 	inverseJoinColumns = @JoinColumn(name="idGuideVoyage"))
 	@JsonIgnore
-	private List<GuideVoyage> listeG;
+	private List<GuideVoyage> listeG = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "utilisateur")
 	@JsonIgnore

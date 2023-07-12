@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,7 @@ import com.inti.repository.IUtilisateurRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
+
 public class GuideVoyageController {
 	
 	@Autowired
@@ -37,8 +38,14 @@ public class GuideVoyageController {
 	@GetMapping("listeGuideVoyage")
 	public List<GuideVoyage> listeGuideVoyage()
 	{
-		System.out.println("test:" + igv.findAll());
-		return igv.findAll();
+		List<GuideVoyage> listeGV = igv.findAll();
+		List<Utilisateur> listeU;
+		for (GuideVoyage guideVoyage : listeGV) {
+			listeU=iur.getListeUtilisateurByGVId(guideVoyage.getIdGuide());
+			guideVoyage.setListeU(listeU);
+		}
+		
+		return listeGV;
 	}
 	
 	@PostMapping("saveGuideVoyage")
@@ -47,11 +54,14 @@ public class GuideVoyageController {
 
 		GuideVoyage gvSaved = igv.save(GuideVoyage);
 		
-		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
-	    for (Utilisateur utilisateur : utilisateurs) {
+		List<Utilisateur> listeU = GuideVoyage.getListeU();
+		System.out.println(listeU);
+	    for (Utilisateur utilisateur : listeU) {
 	        utilisateur.getListeG().add(gvSaved);
 	        iur.save(utilisateur);
 	    }
+	    
+	    
 		return gvSaved;
 
 //		System.out.println("guide" + GuideVoyage);
@@ -98,4 +108,6 @@ public class GuideVoyageController {
 	public GuideVoyage getGuideVoyageById(@PathVariable("idGuide") int idGuide) {
 		return igv.getReferenceById(idGuide);
 	}
+	
+	
 }

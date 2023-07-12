@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,9 +19,11 @@ import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Entity @Table @Data 
 @AllArgsConstructor @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class GuideVoyage {
 	
 	@Id
@@ -34,13 +37,14 @@ public class GuideVoyage {
 	@JoinTable(name="guideVoyage_utilisateur",
 	joinColumns = @JoinColumn(name="idGuideVoyage"), 
 	inverseJoinColumns = @JoinColumn(name="idUtilisateur"))
-	@JsonIgnore
+	@Exclude
 	private List<Utilisateur> listeU;
 	
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST} ) 
 	@JoinTable(name="activite_guideVoyage",
 	joinColumns = @JoinColumn(name="idGuideVoyage"), 
 	inverseJoinColumns = @JoinColumn(name="idActivité"))
+    @Exclude
 	private List<Activite> activites;
 	
 

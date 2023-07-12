@@ -18,7 +18,13 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Integ
 	@Query(value = "select username from utilisateur where id=:id", nativeQuery = true)
 	String getUsernameById(@Param("id") int id);
 	
-	@Query(value = "select email from Utilisateur where estAbonne = 1", nativeQuery = true)
+	@Query(value = "select email from Utilisateur where est_abonne = 1", nativeQuery = true)
 	List<String> getEmailByEstAbonne();
+	
+	@Query(value = "select * from Utilisateur where username=:username", nativeQuery = true)
+	Utilisateur getUtilisateurByUsername(@Param("username") String username);
+	
+	@Query(value = "select u.* from utilisateur u join guide_voyage_utilisateur g on u.id=g.id_utilisateur where g.id_guide_voyage=:id_guide_voyage", nativeQuery = true)
+	List<Utilisateur> getListeUtilisateurByGVId (@Param("id_guide_voyage") int id_guide_voyage);
 
 }
