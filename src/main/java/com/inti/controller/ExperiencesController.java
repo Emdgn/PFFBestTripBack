@@ -40,11 +40,23 @@ public class ExperiencesController {
 	@Autowired
 	LieuRepository lieuRepository;
 	
-	@GetMapping("listeExperiences")
-	public List<Experiences> listeExperiences() {
-		return ier.findAll();
+	
+	@GetMapping("listeExperiences/{type}")
+	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
+		
+		System.out.println("aaaaaaaaaaaaa");
+		System.out.println("type : " + type);
+		
+		if(type.contentEquals("undefined")) {
+			return ier.findAll();
+		}
+		else {
+			return ier.getExperiencesByType(type);
+		}
+		
 	}
 	
+
 	@GetMapping("getExperiencesById/{idExperience}")
 	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {
 		System.out.println(ier.getReferenceById(idExperience));
@@ -180,5 +192,17 @@ public class ExperiencesController {
 		Optional<Integer> optionalId = ier.getIdUtilisateurByIdExp(idExperience);
 		int idUtilisateur = optionalId.orElse(-1);
 		return idUtilisateur != -1 ? iur.getUsernameById(idUtilisateur) : "";
+	}
+	
+	@GetMapping("approuverExperiences/{idExperience}")
+	public boolean approuverExperiences(@PathVariable("idExperience") int idExperience) {
+		try {
+			Experiences experience = ier.getReferenceById(idExperience);
+			experience.setEstApprouvee(true);
+			ier.save(experience);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
 	}
 }

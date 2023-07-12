@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inti.model.Utilisateur;
@@ -68,6 +69,11 @@ public class UtilisateurController {
 	public List<String> getEmailByEstAbonne()
 	{
 		return iur.getEmailByEstAbonne();
+	}
+	
+	@GetMapping("getUtilisateurByUsername")
+	public Utilisateur getUtilisateurByUsername(@RequestParam("username") String username) {
+		return iur.getUtilisateurByUsername(username);
 	}
 
 }

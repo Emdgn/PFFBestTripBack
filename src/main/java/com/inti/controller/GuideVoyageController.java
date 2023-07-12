@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inti.model.Activite;
+import com.inti.model.Experiences;
 import com.inti.model.GuideVoyage;
 import com.inti.model.Utilisateur;
 import com.inti.repository.ActiviteRepository;
@@ -25,7 +27,7 @@ import com.inti.repository.RestaurantRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
+
 public class GuideVoyageController {
 	
 	@Autowired
@@ -43,14 +45,34 @@ public class GuideVoyageController {
 	@GetMapping("listeGuideVoyage/{nom}")
 	public List<GuideVoyage> listeGuideVoyage(@PathVariable("nom") String nom)
 	{
+
+		List<GuideVoyage> listeGV = igv.findAll();
+		List<Utilisateur> listeU;
+		for (GuideVoyage guideVoyage : listeGV) {
+			listeU=iur.getListeUtilisateurByGVId(guideVoyage.getIdGuide());
+			guideVoyage.setListeU(listeU);
+		}
+		
+		
+
 		if(nom.contentEquals("undefined")) {
-			return igv.findAll();
+			return listeGV;
 		}
 		else {
 			return igv.getGuideByLocalisation(nom);
 		}
+
 	}
 	
+	@GetMapping("doesGuideExist/{nom}")
+	public Boolean doesGuideExist(@PathVariable("nom") String nom) {
+		if(igv.doesGuideExist(nom) != null || nom.contentEquals("undefined")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
@@ -58,11 +80,16 @@ public class GuideVoyageController {
 
 		GuideVoyage gvSaved = igv.save(GuideVoyage);
 		
-		List<Utilisateur> utilisateurs = GuideVoyage.getListeU();
-//	    for (Utilisateur utilisateur : utilisateurs) {
-//	        utilisateur.getListeG().add(gvSaved);
-//	       // iur.save(utilisateur);
-//	    }
+
+		List<Utilisateur> listeU = GuideVoyage.getListeU();
+		System.out.println(listeU);
+	    for (Utilisateur utilisateur : listeU) {
+	        utilisateur.getListeG().add(gvSaved);
+	        iur.save(utilisateur);
+	    }
+	    
+	    
+
 		return gvSaved;
 	}
 	
@@ -105,4 +132,16 @@ public class GuideVoyageController {
 	public GuideVoyage getGuideVoyageById(@PathVariable("idGuide") int idGuide) {
 		return igv.getReferenceById(idGuide);
 	}
+	
+	@GetMapping("approuverGuide/{idGuide}")
+	public boolean approuverGuide(@PathVariable("idGuide") int idGuide) {
+		try {
+			GuideVoyage guideVoyage = igv.getReferenceById(idGuide);
+			guideVoyage.setEstApprouve(true);
+			igv.save(guideVoyage);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}	
 }

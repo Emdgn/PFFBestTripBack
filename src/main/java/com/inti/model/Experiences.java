@@ -29,6 +29,7 @@ public class Experiences {
 	private LocalDate dateDebut;
 	private LocalDate dateFin;
 	private String type;
+	private boolean estApprouvee;
 	
 	@OneToMany (mappedBy = "experience")
 	@Exclude
@@ -40,32 +41,37 @@ public class Experiences {
 	private Utilisateur utilisateur;
 
 	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type,
-			List<Activite> activites) {
+			boolean estApprouvee, List<Activite> activites) {
 		super();
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.type = type;
+		this.estApprouvee = estApprouvee;
 		this.activites = activites;
 	}
 	
 	
-	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type) {
+	public Experiences(String nom, LocalDate dateDebut, LocalDate dateFin, String type,
+			boolean estApprouvee) {
 		super();
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.type = type;
+		this.estApprouvee = estApprouvee;
 	}
 	
 
-	public Experiences(int idExperience, String nom, LocalDate dateDebut, LocalDate dateFin, String type) {
+	public Experiences(int idExperience, String nom, LocalDate dateDebut, LocalDate dateFin, String type,
+			boolean estApprouvee) {
 		super();
 		this.idExperience = idExperience;
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.type = type;
+		this.estApprouvee = estApprouvee;
 	}
 
 
