@@ -37,14 +37,13 @@ public class GuideVoyage {
 	@JsonIgnore
 	private List<Utilisateur> listeU;
 	
-    @ManyToMany(cascade = CascadeType.PERSIST) // Ajout de cascade
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST} ) 
 	@JoinTable(name="activite_guideVoyage",
 	joinColumns = @JoinColumn(name="idGuideVoyage"), 
 	inverseJoinColumns = @JoinColumn(name="idActivité"))
 	private List<Activite> activites;
 	
-	
-	
+
 	public GuideVoyage(String nom, LocalDate dateCreation, String description, List<Activite> activites) {
 		super();
 		this.nom = nom;
@@ -52,6 +51,13 @@ public class GuideVoyage {
 		this.description = description;
 		this.activites = activites;
 		}
+
+	public GuideVoyage(String nom, LocalDate dateCreation, String description) {
+		super();
+		this.nom = nom;
+		this.dateCreation = dateCreation;
+		this.description = description;
+	}
 
 
 
