@@ -193,4 +193,16 @@ public class ExperiencesController {
 		int idUtilisateur = optionalId.orElse(-1);
 		return idUtilisateur != -1 ? iur.getUsernameById(idUtilisateur) : "";
 	}
+	
+	@GetMapping("approuverExperiences/{idExperience}")
+	public boolean approuverExperiences(@PathVariable("idExperience") int idExperience) {
+		try {
+			Experiences experience = ier.getReferenceById(idExperience);
+			experience.setEstApprouvee(true);
+			ier.save(experience);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

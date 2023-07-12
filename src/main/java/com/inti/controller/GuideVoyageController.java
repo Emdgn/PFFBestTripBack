@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inti.model.Activite;
+import com.inti.model.Experiences;
 import com.inti.model.GuideVoyage;
 import com.inti.model.Utilisateur;
 import com.inti.repository.ActiviteRepository;
@@ -120,5 +121,15 @@ public class GuideVoyageController {
 		return igv.getReferenceById(idGuide);
 	}
 	
-	
+	@GetMapping("approuverGuide/{idGuide}")
+	public boolean approuverGuide(@PathVariable("idGuide") int idGuide) {
+		try {
+			GuideVoyage guideVoyage = igv.getReferenceById(idGuide);
+			guideVoyage.setEstApprouve(true);
+			igv.save(guideVoyage);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}	
 }
