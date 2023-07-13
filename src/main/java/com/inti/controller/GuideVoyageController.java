@@ -102,8 +102,16 @@ public class GuideVoyageController {
 	{
 		if(igv.getReferenceById(g.getIdGuide())!=null)
 		{
-		igv.save(g);
-		return true;
+			
+			
+			List<Utilisateur> listeU = g.getListeU();
+			System.out.println(listeU);
+		    for (Utilisateur utilisateur : listeU) {
+		        utilisateur.getListeG().add(g);
+		        iur.save(utilisateur);
+		    }
+		    igv.save(g);
+		    return true;
 		}
 	return false;
 	}
