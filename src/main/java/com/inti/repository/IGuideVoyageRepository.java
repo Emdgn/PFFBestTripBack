@@ -17,7 +17,7 @@ public interface IGuideVoyageRepository extends JpaRepository<GuideVoyage, Integ
 	List<GuideVoyage> getGuideByLocalisation(@Param("nom") String nom);
 	
 	@Query(value = "select id_guide from guide_voyage where nom = :nom", nativeQuery = true)
-	Integer doesGuideExist(@Param("nom") String nom);
+	List<Integer> doesGuideExist(@Param("nom") String nom);
 
 
 }
