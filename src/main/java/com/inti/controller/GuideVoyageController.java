@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -141,5 +142,20 @@ public class GuideVoyageController {
 		} catch (Exception e) {
 		}
 		return false;
-	}	
+	}
+	
+	
+	
+	@PutMapping("setNoteGuide")
+	public void setNoteGuide(@RequestParam("idGuide") int idGuide, @RequestParam("notation") int notation) {
+		igv.insertNbrSommeNoteGuide(idGuide, notation);
+		igv.insertNoteGuide(idGuide);
+		
+	}
+	
+	
+	
+
+	
+	
 }
