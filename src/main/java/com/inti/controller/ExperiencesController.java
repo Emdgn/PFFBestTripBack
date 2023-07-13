@@ -70,8 +70,9 @@ public class ExperiencesController {
 		Experiences savedExperiences = ier.save(experiences);
 		
 		System.out.println("Username : " + username);
+		Optional<Integer> optionalId = iur.getIdByUsername(username);
 		
-		// ier.insertIdUtilisateur(iur.getIdByUsername(username).get(0), savedExperiences.getIdExperience());
+		ier.insertIdUtilisateur(optionalId.orElse(-1), savedExperiences.getIdExperience());
 
     List<Activite> activites = experiences.getActivites();
     for (Activite activite : activites) {
