@@ -81,12 +81,12 @@ public class GuideVoyageController {
 		GuideVoyage gvSaved = igv.save(GuideVoyage);
 		
 
-		List<Utilisateur> listeU = GuideVoyage.getListeU();
-		System.out.println(listeU);
-	    for (Utilisateur utilisateur : listeU) {
-	        utilisateur.getListeG().add(gvSaved);
-	        iur.save(utilisateur);
-	    }
+		//List<Utilisateur> listeU = GuideVoyage.getListeU();
+		//System.out.println(listeU);
+//	    for (Utilisateur utilisateur : listeU) {
+//	        utilisateur.getListeG().add(gvSaved);
+//	        iur.save(utilisateur);
+//	    }
 	    
 	    
 
@@ -96,7 +96,7 @@ public class GuideVoyageController {
 	@PutMapping("modifierGuideVoyage")
 	public boolean modifierGuideVoyage(@RequestBody GuideVoyage g)
 	{
-		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk" +g.getActivites().size());
+		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk"+ g.getNom() + "|" +g.getActivites().size());
 		for (Activite activite : g.getActivites()) 
 		{
 			System.out.println("uuuuuu" + activite.getNom() + activite.getCommentaire() + activite.getId() + activite.getDepense());
