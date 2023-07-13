@@ -32,6 +32,10 @@ public class GuideVoyage {
 	private String nom;
 	private LocalDate dateCreation;
 	private String description;
+	private boolean estApprouve;
+	private double note;
+	private int nbrDeNote;
+	private int sommeNoteTot;
 	
 	@ManyToMany
 	@JoinTable(name="guideVoyage_utilisateur",
@@ -48,28 +52,24 @@ public class GuideVoyage {
 	private List<Activite> activites;
 	
 
-	public GuideVoyage(String nom, LocalDate dateCreation, String description, List<Activite> activites) {
+	public GuideVoyage(String nom, LocalDate dateCreation, String description, boolean estApprouve, List<Activite> activites) {
 		super();
 		this.nom = nom;
 		this.dateCreation = dateCreation;
 		this.description = description;
+		this.estApprouve = estApprouve;
 		this.activites = activites;
 		}
 
-	public GuideVoyage(String nom, LocalDate dateCreation, String description) {
+	public GuideVoyage(String nom, LocalDate dateCreation, String description, boolean estApprouve) {
 		super();
 		this.nom = nom;
 		this.dateCreation = dateCreation;
 		this.description = description;
+		this.estApprouve = estApprouve;
 	}
 
-
-
 	
 	
 	
-	
-	
-	
-
 }

@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inti.model.Activite;
+import com.inti.model.Experiences;
 import com.inti.model.GuideVoyage;
 import com.inti.model.Utilisateur;
 import com.inti.repository.ActiviteRepository;
@@ -58,6 +61,15 @@ public class GuideVoyageController {
 
 	}
 	
+	@GetMapping("doesGuideExist/{nom}")
+	public Boolean doesGuideExist(@PathVariable("nom") String nom) {
+		if(!igv.doesGuideExist(nom).isEmpty() || nom.contentEquals("undefined")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	@PostMapping("saveGuideVoyage")
 	public GuideVoyage saveGuideVoyage(@RequestBody GuideVoyage GuideVoyage)
@@ -119,6 +131,31 @@ public class GuideVoyageController {
 	public GuideVoyage getGuideVoyageById(@PathVariable("idGuide") int idGuide) {
 		return igv.getReferenceById(idGuide);
 	}
+	
+	@GetMapping("approuverGuide/{idGuide}")
+	public boolean approuverGuide(@PathVariable("idGuide") int idGuide) {
+		try {
+			GuideVoyage guideVoyage = igv.getReferenceById(idGuide);
+			guideVoyage.setEstApprouve(true);
+			igv.save(guideVoyage);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+	
+	
+	
+	@PutMapping("setNoteGuide")
+	public void setNoteGuide(@RequestParam("idGuide") int idGuide, @RequestParam("notation") int notation) {
+		igv.insertNbrSommeNoteGuide(idGuide, notation);
+		igv.insertNoteGuide(idGuide);
+		
+	}
+	
+	
+	
+
 	
 	
 }

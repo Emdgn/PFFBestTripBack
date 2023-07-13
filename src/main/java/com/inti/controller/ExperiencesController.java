@@ -44,9 +44,6 @@ public class ExperiencesController {
 	@GetMapping("listeExperiences/{type}")
 	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
 		
-		System.out.println("aaaaaaaaaaaaa");
-		System.out.println("type : " + type);
-		
 		if(type.contentEquals("undefined")) {
 			return ier.findAll();
 		}
@@ -54,6 +51,16 @@ public class ExperiencesController {
 			return ier.getExperiencesByType(type);
 		}
 		
+	}
+	
+	@GetMapping("doesExperienceExist/{type}")
+	public Boolean doesExperienceExist(@PathVariable("type") String type) {
+		if(ier.doesExperienceExist(type).isEmpty() || type.contentEquals("undefined")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 
@@ -193,5 +200,17 @@ public class ExperiencesController {
 		Optional<Integer> optionalId = ier.getIdUtilisateurByIdExp(idExperience);
 		int idUtilisateur = optionalId.orElse(-1);
 		return idUtilisateur != -1 ? iur.getUsernameById(idUtilisateur) : "";
+	}
+	
+	@GetMapping("approuverExperiences/{idExperience}")
+	public boolean approuverExperiences(@PathVariable("idExperience") int idExperience) {
+		try {
+			Experiences experience = ier.getReferenceById(idExperience);
+			experience.setEstApprouvee(true);
+			ier.save(experience);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
 	}
 }
