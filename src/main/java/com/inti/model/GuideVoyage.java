@@ -30,7 +30,7 @@ import lombok.ToString.Exclude;
 public class GuideVoyage {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int idGuide; // Identifiant du guide de voyage
 
 	private String nom; // Nom du guide de voyage
