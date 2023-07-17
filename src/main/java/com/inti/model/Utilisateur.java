@@ -58,5 +58,18 @@ public class Utilisateur {
 	@OneToMany(mappedBy = "utilisateur")
 	@JsonIgnore
 	private List<Experiences> listeE;
+
+	public Utilisateur(@NonNull String username, @NonNull String mdp, @NonNull boolean estAbonne, @NonNull String role,
+			@NonNull String email, String nom, String prenom) {
+		super();
+		this.username = username;
+		this.mdp = mdp;
+		this.estAbonne = estAbonne;
+		this.role = role;
+		this.email = email;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+	
 	
 }
