@@ -25,22 +25,45 @@ import com.inti.repository.IUtilisateurRepository;
 import com.inti.repository.LieuRepository;
 import com.inti.repository.RestaurantRepository;
 
+/**
+ * Controller de la classe Experiences
+ *
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
 public class ExperiencesController {
-	
+	/**
+	 * Injection du repository de la classe Experiences
+	 */
 	@Autowired
 	IExperiencesRepository ier;
+	/**
+	 * Injection du repository de la classe Activite
+	 */
 	@Autowired
 	ActiviteRepository activiteRepository;
+	/**
+	 * Injection du repository de la classe Utilisateur
+	 */
 	@Autowired
 	IUtilisateurRepository iur;
+	/**
+	 * Injection du repository de la classe Restaurant
+	 */
 	@Autowired
 	RestaurantRepository restaurantRepository;
+	/**
+	 * Injection du repository de la classe Lieu
+	 */
 	@Autowired
 	LieuRepository lieuRepository;
 	
 	
+	/**
+	 * Méthode pour récupérer une liste des activités d'un type donné.
+	 * @param type : le type de l'expérience.
+	 * @return la liste des activités.
+	 */
 	@GetMapping("listeExperiences/{type}")
 	public List<Experiences> listeExperiences(@PathVariable("type") String type) {
 		
@@ -53,6 +76,11 @@ public class ExperiencesController {
 		
 	}
 	
+	/**
+	 * Méthode pour vérifier s'il existe au moins une expérience d'un type donné.
+	 * @param type : le type de l'expérience.
+	 * @return true s'il existe au moins une expérience d'un type donné, false sinon.
+	 */
 	@GetMapping("doesExperienceExist/{type}")
 	public Boolean doesExperienceExist(@PathVariable("type") String type) {
 		if(ier.doesExperienceExist(type).isEmpty() || type.contentEquals("undefined")) {
@@ -64,6 +92,11 @@ public class ExperiencesController {
 	}
 	
 
+	/**
+	 * Méthode pour récupérer une expérience.
+	 * @param idExperience : l'identifiant de l'expérience à récupérer.
+	 * @return l'expérience d'identifiant donné.
+	 */
 	@GetMapping("getExperiencesById/{idExperience}")
 	public Experiences getExperiencesById(@PathVariable("idExperience") int idExperience) {
 		System.out.println(ier.getReferenceById(idExperience));
@@ -72,6 +105,12 @@ public class ExperiencesController {
 		return ier.getReferenceById(idExperience);
 	}
 	
+	/**
+	 * Méthode pour créer une expérience.
+	 * @param experiences : l'expérience à créer.
+	 * @param username : username de l'utilisateur qui créé l'expérience.
+	 * @return l'expérience qui vient d'être créée.
+	 */
 	@PostMapping("saveExperiences")
 	public Experiences saveExperiences(@RequestBody Experiences experiences, @RequestParam("username") String username) {
 		Experiences savedExperiences = ier.save(experiences);
@@ -91,6 +130,12 @@ public class ExperiencesController {
     return savedExperiences;
 	}
 	
+	/**
+	 * Méthode qui permet de modifier une expérience.
+	 * @param experiences : l'expérience à modifier.
+	 * @param username : username de l'utilisateur de l'expérience.
+	 * @return true si l'expérience a été modifiée avec succès, false sinon.
+	 */
 	@PutMapping("updateExperiences")
 	public boolean updateExperiences(@RequestBody Experiences experiences, @RequestParam("username") String username) {
 
@@ -177,6 +222,11 @@ public class ExperiencesController {
 		return false;
 	}
 	
+	/**
+	 * Méthode pour supprimer une expérience.
+	 * @param idExperience : l'identifiant de l'expérience à supprimer.
+	 * @return true si l'expérience a été supprimée avec succès, false sinon.
+	 */
 	@DeleteMapping("deleteExperiences/{idExperience}")
 	public boolean deleteExperiences(@PathVariable("idExperience") int idExperience) {
 	    try {
@@ -194,6 +244,11 @@ public class ExperiencesController {
 	    }
 	}
 	
+	/**
+	 * Méthode pour récupérer l'username de l'utilisateur d'une expérience donnée.
+	 * @param idExperience : l'identifiant de l'expérience.
+	 * @return l'username de l'utilisateur d'une expérience donnée.
+	 */
 	@GetMapping("getUsernameById/{idExperience}")
 	public String getUsernameById(@PathVariable("idExperience") int idExperience)
 	{
