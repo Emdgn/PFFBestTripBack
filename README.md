@@ -1,6 +1,6 @@
 # PFFBestTripBack
 
-Description
+Description:
 Le projet est la création d’un site internet pour partager des expériences de voyage et proposer des guides pour aider à organiser les prochaines expéditions.
 Il y a pour cela différentes catégories d’utilisateurs qui peuvent interagir pour proposer leurs expériences et promouvoir les guides.
 Le projet sera accessible sur les différents navigateurs web.
