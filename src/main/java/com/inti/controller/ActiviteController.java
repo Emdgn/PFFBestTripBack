@@ -17,13 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inti.model.Activite;
 import com.inti.repository.ActiviteRepository;
 
+/**
+ * Controller de la classe Activite
+ *
+ */
 @RestController
 @RequestMapping("/activite")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ActiviteController {
+	/**
+	 * Injection du repository de la classe Activite
+	 */
 	@Autowired
 	ActiviteRepository activiteRepository;
 	
+	/**
+	 * Méthode pour créer une activité.
+	 * @param activite : l'activité à créer.
+	 * @return true si l'activité a été créée avec succès, false sinon.
+	 */
 	@PostMapping("/add")
   public Boolean createActivite(@RequestBody Activite activite) {
 		System.out.println(activite);
@@ -35,16 +47,31 @@ public class ActiviteController {
 	  }
   }
 	
+	/**
+	 * Méthode pour récupérer une liste des activités.
+	 * @return la liste des activités.
+	 */
 	@GetMapping("/get")
 	public List<Activite> getActivites() {
 		return activiteRepository.findAll();
 	}
 	
+	/**
+	 * Méthode pour récupérer une activité.
+	 * @param id : l'identifiant de l'activité à récupérer.
+	 * @return l'activité d'identifiant donné.
+	 */
 	@GetMapping("/get/{id}")
 	public Optional<Activite> getActivite(@PathVariable("id") String id) {
 		return activiteRepository.findById(Integer.parseInt(id));
 	}
 	
+	/**
+	 * Méthode pour modifier une activité.
+	 * @param id : l'identifiant de l'activité à modifier.
+	 * @param activite : l'activité à modifier.
+	 * @return true si l'activité a été modifiée avec succès, false sinon.
+	 */
 	@PutMapping("/update/{id}")
   public Boolean updateActivite(@PathVariable("id") String id, @RequestBody Activite activite) {
     Optional<Activite> activiteOptional = activiteRepository.findById(Integer.parseInt(id));
@@ -56,6 +83,11 @@ public class ActiviteController {
     return false;
   }
 	
+	/**
+	 * Méthode pour supprimer une activité.
+	 * @param id : l'identifiant de l'activité à supprimer.
+	 * @return true si l'activité à été supprimée avec succès, false sinon.
+	 */
 	@DeleteMapping("/delete/{id}")
   public Boolean deleteActivite(@PathVariable("id") String id) {
     Optional<Activite> activiteOptional = activiteRepository.findById(Integer.parseInt(id));
