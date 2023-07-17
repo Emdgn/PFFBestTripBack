@@ -1,5 +1,6 @@
 package com.inti.repository;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
@@ -12,10 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inti.model.Experiences;
-import com.inti.model.Experiences;
-import com.inti.model.Experiences;
-import com.inti.model.Experiences;
 import com.inti.model.Experiences;
 
 @ExtendWith(SpringExtension.class)

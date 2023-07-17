@@ -33,6 +33,9 @@ public class GuideVoyage {
 	private LocalDate dateCreation;
 	private String description;
 	private boolean estApprouve;
+	private double note;
+	private int nbrDeNote;
+	private int sommeNoteTot;
 	
 	@ManyToMany
 	@JoinTable(name="guideVoyage_utilisateur",
@@ -65,4 +68,8 @@ public class GuideVoyage {
 		this.description = description;
 		this.estApprouve = estApprouve;
 	}
+
+	
+	
+	
 }
