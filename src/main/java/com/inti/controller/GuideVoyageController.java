@@ -80,9 +80,9 @@ public class GuideVoyageController {
 	@PutMapping("modifierGuideVoyage")
 	public boolean modifierGuideVoyage(@RequestBody GuideVoyage g) {
 		// Afficher les informations sur les activités
-		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk" + g.getNom() + "|" + g.getActivites().size());
+		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkk" + g.getNom() + "|" + g.getActivites().size());// ajout de trace
 		for (Activite activite : g.getActivites()) {
-			System.out.println("uuuuuu" + activite.getNom() + activite.getCommentaire() + activite.getId() + activite.getDepense());
+			System.out.println("uuuuuu" + activite.getNom() + activite.getCommentaire() + activite.getId() + activite.getDepense());//ajout de trace
 		}
 		if (igv.getReferenceById(g.getIdGuide()) != null) {
 			// Mettre à jour les Utilisateur associés au GuideVoyage
