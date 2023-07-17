@@ -13,8 +13,5 @@ import com.inti.model.Ville;
 @Repository
 public interface IPaysRepository extends JpaRepository<Pays, Integer>{
 
-	@Query(value = "select * from Pays where id= :id", nativeQuery = true)
-	List<Ville> findlisteVillePays(@Param("id") int id);
-	
 	
 }
