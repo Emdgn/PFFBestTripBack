@@ -32,7 +32,7 @@ Spring Data JPA : librairie (permet de réduire la quantité de code nécessaire
 MySQL Driver : pour pouvoir travailler avec une base de données
 
 Lancer le backend :
-mvn spring-boot:run (?)
+mvn spring-boot:run
 
 Le backend est accessible à l’adresse : http://localhost:8080
 
